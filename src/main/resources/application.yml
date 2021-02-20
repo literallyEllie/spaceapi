@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: spaceapi
+server:
+  port: 6969
+
+graphql:
+  spring-graphql-common:
+    clientMutationIdName: clientMutationId
+    injectClientMutationId: true
+    allowEmptyClientMutationId: false
+    mutationInputArgumentName: input
+    outputObjectNamePrefix: Payload
+    inputObjectNamePrefix: Input
+    schemaMutationObjectName: Mutation
+  servlet:
+    mapping: /graphql
+    enabled: true
+    corsEnabled: true
+
+graphiql:
+  mapping: /graphiql
+  enabled: true
