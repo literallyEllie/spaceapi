@@ -1,8 +1,10 @@
 type Query {
     stat(key: String): AbstractStat
+    stats(keys: [String]): [AbstractStat]
 }
 
 type AbstractStat {
-    id: String
-    value: Int!
+    key: String
+    value: Int
+    values: [AbstractStat]
 }

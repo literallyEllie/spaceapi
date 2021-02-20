@@ -1,5 +1,7 @@
 package net.spacedelta.api.stats;
 
+import java.util.List;
+
 public abstract class AbstractStat {
 
     private final String key;
@@ -21,6 +23,10 @@ public abstract class AbstractStat {
     public abstract Object getValue();
 
     public abstract void setValue(Object object);
+
+    public List<AbstractStat> getValues() {
+        return null;
+    }
 
     public long getRefreshRate() {
         return refreshRate;

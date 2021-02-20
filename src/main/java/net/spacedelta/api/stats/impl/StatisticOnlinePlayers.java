@@ -4,14 +4,14 @@ import net.spacedelta.api.stats.AbstractStat;
 
 import java.util.concurrent.TimeUnit;
 
-public class StatisticUniquePlayers extends AbstractStat {
+public class StatisticOnlinePlayers extends AbstractStat {
 
     private int amount;
 
-    public StatisticUniquePlayers() {
-        super("online_players", TimeUnit.MINUTES.toMillis(10));
+    public StatisticOnlinePlayers() {
+        super("unique_players", TimeUnit.MINUTES.toMillis(10));
 
-        this.amount = 69;
+        this.amount = 39;
     }
 
     @Override
