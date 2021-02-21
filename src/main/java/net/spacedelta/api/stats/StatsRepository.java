@@ -16,6 +16,7 @@ public class StatsRepository {
                 new StatisticUniquePlayers(),
                 new StatisticOnlinePlayers()
         );
+
         this.updaterThread = new StatsUpdaterThread(this);
     }
 

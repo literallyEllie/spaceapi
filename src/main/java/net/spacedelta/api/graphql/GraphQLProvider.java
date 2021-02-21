@@ -22,7 +22,7 @@ public class GraphQLProvider {
     private GraphQL graphQL;
 
     @Autowired
-    GraphQLDataFetchers graphQLDataFetchers;
+    private GraphQLDataFetchers graphQLDataFetchers;
 
     @Bean
     public GraphQL graphQL() {

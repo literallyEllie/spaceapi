@@ -1,32 +1,16 @@
 package net.spacedelta.api.stats.impl;
 
-import net.spacedelta.api.stats.AbstractStat;
+import net.spacedelta.api.stats.IntegerStat;
 
-import java.util.concurrent.TimeUnit;
-
-public class StatisticUniquePlayers extends AbstractStat {
-
-    private int amount;
+public class StatisticUniquePlayers extends IntegerStat {
 
     public StatisticUniquePlayers() {
-        super("online_players", TimeUnit.MINUTES.toMillis(10));
-
-        this.amount = 69;
+        super("online_players");
     }
 
     @Override
     public void refresh() {
         // todo
-    }
-
-    @Override
-    public Object getValue() {
-        return amount;
-    }
-
-    @Override
-    public void setValue(Object object) {
-        this.amount = (Integer) object;
     }
 
 }

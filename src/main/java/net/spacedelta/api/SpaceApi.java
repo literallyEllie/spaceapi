@@ -20,6 +20,16 @@ public class SpaceApi {
         SpringApplication.run(SpaceApi.class, args);
 
         /*
+        {
+    stats(keys: ["unique_players", "online_players"]) {
+        key
+        value
+    }
+}
+
+         */
+
+        /*
         SchemaParser schemaParser = new SchemaParser();
         TypeDefinitionRegistry typeDefinitionRegistry = schemaParser.parse(schema);
 

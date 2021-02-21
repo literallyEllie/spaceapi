@@ -1,6 +1,6 @@
 package net.spacedelta.api.stats;
 
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractStat {
 
@@ -14,6 +14,10 @@ public abstract class AbstractStat {
         this.refreshRate = refreshRate;
     }
 
+    public AbstractStat(String key) {
+        this(key, TimeUnit.MINUTES.toMillis(10));
+    }
+
     public abstract void refresh();
 
     public String getKey() {
@@ -23,10 +27,6 @@ public abstract class AbstractStat {
     public abstract Object getValue();
 
     public abstract void setValue(Object object);
-
-    public List<AbstractStat> getValues() {
-        return null;
-    }
 
     public long getRefreshRate() {
         return refreshRate;

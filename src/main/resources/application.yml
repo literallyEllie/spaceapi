@@ -18,6 +18,13 @@ graphql:
     enabled: true
     corsEnabled: true
 
+mongodb:
+  username: uname
+  userDb: udb
+  password: pass
+  host: localhost
+  port: 27017
+
 graphiql:
   mapping: /graphiql
   enabled: true
