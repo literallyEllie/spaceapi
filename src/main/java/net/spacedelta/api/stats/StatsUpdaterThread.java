@@ -17,9 +17,16 @@ public class StatsUpdaterThread implements Runnable {
     private final ScheduledFuture<?> taskRunner;
     private final Executor updaterExecutor;
 
+    /**
+     * Updater thread for refreshing stats and keeping them not stale
+     * with respect to their refresh rate
+     *
+     * @param repository repository instance
+     */
     public StatsUpdaterThread(StatsRepository repository) {
         this.repository = repository;
 
+        // delay 1 minute to allow for mongo to init
         taskRunner = Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(
                 this,
                 1,
@@ -30,6 +37,9 @@ public class StatsUpdaterThread implements Runnable {
         updaterExecutor = Executors.newCachedThreadPool();
     }
 
+    /**
+     * Terminate the updater thread
+     */
     public void terminate() {
         taskRunner.cancel(true);
     }

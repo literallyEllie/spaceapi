@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Watches and counts requests and logs them
+ */
 @Component
 public class ApiWatcher implements GraphQLServletListener {
 

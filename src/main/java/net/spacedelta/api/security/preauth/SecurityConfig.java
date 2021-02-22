@@ -9,6 +9,9 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedG
 
 import javax.servlet.Filter;
 
+/**
+ * Pre-auth security config requiring prior authentication not on this application
+ */
 // @EnableWebSecurity
 // @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

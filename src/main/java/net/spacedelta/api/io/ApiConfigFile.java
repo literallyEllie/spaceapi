@@ -13,6 +13,14 @@ public class ApiConfigFile {
 
     private final File resourceFile;
 
+    /**
+     * Config file wrapper to load files from resources
+     *
+     * If the file does not exist, will attempt to load it from resources
+     * or throw a {@link RuntimeException}
+     *
+     * @param resourcePath resource path
+     */
     public ApiConfigFile(String resourcePath) {
         resourceFile = new File(resourcePath);
 
@@ -32,6 +40,13 @@ public class ApiConfigFile {
 
     }
 
+    /**
+     * Loads the file using Jackon wrapper
+     *
+     * @param clazz clazz to load into
+     * @param <T> expected type
+     * @return loaded or <code>null</code> if error loading
+     */
     public <T> T loadJson(Class<?> clazz) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);

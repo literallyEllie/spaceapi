@@ -10,6 +10,5 @@ type AbstractStat {
 type StatSet {
     onlinePlayers: Int
     uniquePlayers: Int
-    xd: Int
 }
 

@@ -14,6 +14,11 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * The provider of the service
+ *
+ * Loads the schema and registers the appropriate resolvers.
+ */
 @Service
 public class ApiProvider {
 

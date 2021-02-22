@@ -3,6 +3,11 @@ package net.spacedelta.api;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * SpaceApi for doing sexy things for sexy people
+ *
+ * The only current functionality is getting stats but WIP!
+ */
 @SpringBootApplication
 public class SpaceApi {
 

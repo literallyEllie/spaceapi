@@ -1,5 +1,8 @@
 package net.spacedelta.api.mongo;
 
+/**
+ * Credentials container for mongo connections
+ */
 public class MongoConfig {
 
     private String username, userDb, password, host, database;

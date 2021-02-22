@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,13 @@ public class StatsRepository implements Map<String, Object> {
     @Autowired
     private MongoManager mongoManager;
 
+    /**
+     * Repository and manager for all stats
+     *
+     * Implements {@link Map} in order to allow for dynamic stat getting
+     *
+     * Also controls {@link StatsUpdaterThread}
+     */
     public StatsRepository() {
         statisticRegistry = Lists.newArrayList(
                 new StatUniquePlayers(),
@@ -39,26 +47,51 @@ public class StatsRepository implements Map<String, Object> {
         this.updaterThread = new StatsUpdaterThread(this);
     }
 
+    /**
+     * Terminate the service
+     *
+     * Terminate first the updater thread then clears the registry
+     */
+    @PreDestroy
     public void shutdown() {
         updaterThread.terminate();
         statisticRegistry.clear();
         logger.info("Terminated");
     }
 
+    /**
+     * @return all registered stats
+     */
     public List<AbstractStat> getStatisticRegistry() {
         return statisticRegistry;
     }
 
-    public AbstractStat getStat(String id) {
+    /**
+     * Gets a stat by its key
+     *
+     * The key can be expected to be in the format of "fooBar" with no mention of "Stat"
+     *
+     * @param key statistic key to get
+     * @return the stat found by this name
+     * @throws StatNotFoundError if the referenced key does not exist
+     */
+    public AbstractStat getStat(String key) {
         return statisticRegistry.stream()
-                .filter(abstractStat -> abstractStat.getKey().equals(id))
+                .filter(abstractStat -> abstractStat.getKey().equals(key))
                 .findFirst()
-                .orElseThrow(() -> new StatNotFoundError(id));
+                .orElseThrow(() -> new StatNotFoundError(key));
     }
 
-    public List<AbstractStat> getStats(String[] ids) {
+    /**
+     * Gets an array of stats by their keys
+     *
+     * @see StatsRepository#getStat(String)
+     * @param keys keys to acquire
+     * @return a list of stats
+     */
+    public List<AbstractStat> getStats(String[] keys) {
         List<AbstractStat> stats = Lists.newArrayList();
-        for (String id : ids) {
+        for (String id : keys) {
             final AbstractStat stat = getStat(id);
             if (stat != null) {
                 stats.add(stat);
@@ -68,8 +101,27 @@ public class StatsRepository implements Map<String, Object> {
         return stats;
     }
 
+    /**
+     * @return reference to mongo manager for the updater thread
+     */
     public MongoManager getMongoManager() {
         return mongoManager;
+    }
+
+    /**
+     * The function allowing this to work
+     *
+     * It avoids having to make everything conform to one type
+     * and instead it only has to be defined in the schema file
+     *
+     * This method will be called when acquiring values
+     *
+     * @param key stat key
+     * @return the key and its value
+     */
+    @Override
+    public Object get(Object key) {
+        return getStat(key.toString()).getValue();
     }
 
     @Override
@@ -90,11 +142,6 @@ public class StatsRepository implements Map<String, Object> {
     @Override
     public boolean containsValue(Object value) {
         return false;
-    }
-
-    @Override
-    public Object get(Object key) {
-        return getStat(key.toString()).getValue();
     }
 
     @Nullable

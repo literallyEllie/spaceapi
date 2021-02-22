@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Handles exceptions to reduce exposure to the client
+ */
 @Component
 public class ApiExceptionHandler implements GraphQLErrorHandler {
 
@@ -41,6 +44,7 @@ public class ApiExceptionHandler implements GraphQLErrorHandler {
                         return new GraphQLError() {
                             @Override
                             public String getMessage() {
+                                // suppress schema exposing for some reason
                                 return "No such schema field at" + graphQLError.getMessage().split("@")[1];
                             }
 
