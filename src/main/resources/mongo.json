@@ -1,0 +1,8 @@
+{
+  "username": "uname",
+  "userDb": "udb",
+  "password": "pass",
+  "host": "localhosts",
+  "port": 27017,
+  "database": "db"
+}

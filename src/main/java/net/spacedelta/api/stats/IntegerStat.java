@@ -2,13 +2,12 @@ package net.spacedelta.api.stats;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class IntegerStat extends AbstractStat{
+public abstract class IntegerStat extends AbstractStat {
 
     private final AtomicInteger value;
 
-    public IntegerStat(String key) {
-        super(key);
-        this.value = new AtomicInteger(0);
+    public IntegerStat() {
+        this.value = new AtomicInteger(-1);
     }
 
     @Override
@@ -18,10 +17,9 @@ public abstract class IntegerStat extends AbstractStat{
 
     @Override
     public void setValue(Object object) {
-        if (object instanceof Integer) {
-            this.value.set((Integer) object);
+        if (object instanceof Number) {
+            this.value.set(((Number) object).intValue());
         }
     }
-
 
 }

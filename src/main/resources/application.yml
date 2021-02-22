@@ -1,8 +1,10 @@
 spring:
   application:
     name: spaceapi
-server:
-  port: 6969
+  profiles:
+    active: prod
+  server:
+    port: 6969
 
 graphql:
   spring-graphql-common:
@@ -17,13 +19,8 @@ graphql:
     mapping: /graphql
     enabled: true
     corsEnabled: true
-
-mongodb:
-  username: uname
-  userDb: udb
-  password: pass
-  host: localhost
-  port: 27017
+    max-query-depth: 3
+    exception-handlers-enabled: true
 
 graphiql:
   mapping: /graphiql

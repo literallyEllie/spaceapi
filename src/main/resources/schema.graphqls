@@ -1,9 +1,15 @@
 type Query {
-    stat(key: String): AbstractStat
-    stats(keys: [String]): [AbstractStat]
+    stat: StatSet
 }
 
 type AbstractStat {
     key: String
     value: Int
 }
+
+type StatSet {
+    onlinePlayers: Int
+    uniquePlayers: Int
+    xd: Int
+}
+

@@ -9,16 +9,17 @@ public abstract class AbstractStat {
     private final long refreshRate;
     private long lastRefresh;
 
-    public AbstractStat(String key, long refreshRate) {
-        this.key = key;
+    public AbstractStat(long refreshRate) {
+        String className = getClass().getSimpleName().replace("Stat", "");
+        this.key = className.substring(0, 1).toLowerCase() + className.substring(1);
         this.refreshRate = refreshRate;
     }
 
-    public AbstractStat(String key) {
-        this(key, TimeUnit.MINUTES.toMillis(10));
+    public AbstractStat() {
+        this(TimeUnit.MINUTES.toMillis(10));
     }
 
-    public abstract void refresh();
+    public abstract void refresh(StatsRepository repository);
 
     public String getKey() {
         return key;

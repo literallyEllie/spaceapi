@@ -3,44 +3,36 @@ package net.spacedelta.api.mongo;
 import com.mongodb.*;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import net.spacedelta.api.io.ApiConfigFile;
 import org.bson.Document;
 import org.bson.UuidRepresentation;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
 
-@ConstructorBinding
-@ConfigurationProperties("mongodb")
+@Component
 public class MongoManager {
 
     private final Logger logger;
     private final MongoClient client;
     private final MongoDatabase mDatabase;
 
-    public MongoManager(String username, String userDb, String password, String host, int port, String database) {
+    public MongoManager() {
         logger = LoggerFactory.getLogger("Mongo-Manager");
-
-        logger.info("u1 " + username);
+        final MongoConfig config = new ApiConfigFile("mongo.json").loadJson(MongoConfig.class);
 
         MongoCredential credential = MongoCredential.createCredential(
-                username,
-                userDb,
-                password.toCharArray()
+                config.getUsername(),
+                config.getUserDb(),
+                config.getPassword().toCharArray()
         );
 
         client = new MongoClient(
-                new ServerAddress(host, port),
+                new ServerAddress(config.getHost(), config.getPort()),
                 credential,
                 MongoClientOptions.builder()
                         .uuidRepresentation(UuidRepresentation.STANDARD)
@@ -51,7 +43,7 @@ public class MongoManager {
                         .build()
         );
 
-        mDatabase = client.getDatabase(database);
+        mDatabase = client.getDatabase(config.getDatabase());
         logger.info("Setup");
     }
 

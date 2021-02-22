@@ -1,14 +1,32 @@
 package net.spacedelta.api.mongo;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
+public class MongoConfig {
 
-@Configuration
-public class MongoConfig extends AbstractMongoClientConfiguration {
+    private String username, userDb, password, host, database;
+    private int port;
 
-    @Override
-    protected String getDatabaseName() {
-        return "sd_prod";
+    public String getUsername() {
+        return username;
+    }
+
+    public String getUserDb() {
+        return userDb;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public String getDatabase() {
+        return database;
     }
 
 }
