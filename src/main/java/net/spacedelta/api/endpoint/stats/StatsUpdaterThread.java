@@ -1,4 +1,4 @@
-package net.spacedelta.api.stats;
+package net.spacedelta.api.endpoint.stats;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +29,9 @@ public class StatsUpdaterThread implements Runnable {
         // delay 1 minute to allow for mongo to init
         taskRunner = Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(
                 this,
-                1,
                 10,
-                TimeUnit.MINUTES
+                10 * 60,
+                TimeUnit.SECONDS
         );
 
         updaterExecutor = Executors.newCachedThreadPool();

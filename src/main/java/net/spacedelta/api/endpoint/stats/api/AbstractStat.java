@@ -1,10 +1,13 @@
-package net.spacedelta.api.stats;
+package net.spacedelta.api.endpoint.stats.api;
 
+import net.spacedelta.api.endpoint.ApiValue;
+import net.spacedelta.api.endpoint.stats.StatsRepository;
+import net.spacedelta.api.endpoint.stats.StatsUpdaterThread;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class AbstractStat {
+public abstract class AbstractStat extends ApiValue {
 
     private final String key;
 
@@ -13,7 +16,7 @@ public abstract class AbstractStat {
 
     /**
      * Represents an acquirable statistic to be provided
-     *
+     * <p>
      * Classes should follow the format "StatFooBar" which translates to the key "fooBar"
      *
      * @param refreshRate refresh rate between {@link AbstractStat#refresh(StatsRepository)} is called by {@link StatsUpdaterThread}
@@ -35,7 +38,7 @@ public abstract class AbstractStat {
 
     /**
      * Should refresh the value cached by this container
-     *
+     * <p>
      * Will most likely be called by {@link StatsUpdaterThread}
      *
      * @param repository repository instance

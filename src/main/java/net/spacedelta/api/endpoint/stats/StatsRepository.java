@@ -1,10 +1,12 @@
-package net.spacedelta.api.stats;
+package net.spacedelta.api.endpoint.stats;
 
 import com.google.common.collect.Lists;
+import net.spacedelta.api.endpoint.stats.api.AbstractStat;
+import net.spacedelta.api.endpoint.stats.error.StatNotFoundError;
+import net.spacedelta.api.endpoint.stats.impl.StatGlobalBalance;
+import net.spacedelta.api.endpoint.stats.impl.StatOnlinePlayers;
+import net.spacedelta.api.endpoint.stats.impl.StatUniquePlayers;
 import net.spacedelta.api.mongo.MongoManager;
-import net.spacedelta.api.stats.error.StatNotFoundError;
-import net.spacedelta.api.stats.impl.StatOnlinePlayers;
-import net.spacedelta.api.stats.impl.StatUniquePlayers;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -32,15 +34,16 @@ public class StatsRepository implements Map<String, Object> {
 
     /**
      * Repository and manager for all stats
-     *
+     * <p>
      * Implements {@link Map} in order to allow for dynamic stat getting
-     *
+     * <p>
      * Also controls {@link StatsUpdaterThread}
      */
     public StatsRepository() {
         statisticRegistry = Lists.newArrayList(
                 new StatUniquePlayers(),
-                new StatOnlinePlayers()
+                new StatOnlinePlayers(),
+                new StatGlobalBalance()
         );
 
         logger.info("Registered " + statisticRegistry.size() + " stat types.");
@@ -49,7 +52,7 @@ public class StatsRepository implements Map<String, Object> {
 
     /**
      * Terminate the service
-     *
+     * <p>
      * Terminate first the updater thread then clears the registry
      */
     @PreDestroy
@@ -62,19 +65,21 @@ public class StatsRepository implements Map<String, Object> {
     /**
      * @return all registered stats
      */
+    @NotNull
     public List<AbstractStat> getStatisticRegistry() {
         return statisticRegistry;
     }
 
     /**
      * Gets a stat by its key
-     *
+     * <p>
      * The key can be expected to be in the format of "fooBar" with no mention of "Stat"
      *
      * @param key statistic key to get
      * @return the stat found by this name
      * @throws StatNotFoundError if the referenced key does not exist
      */
+    @NotNull
     public AbstractStat getStat(String key) {
         return statisticRegistry.stream()
                 .filter(abstractStat -> abstractStat.getKey().equals(key))
@@ -85,10 +90,11 @@ public class StatsRepository implements Map<String, Object> {
     /**
      * Gets an array of stats by their keys
      *
-     * @see StatsRepository#getStat(String)
      * @param keys keys to acquire
      * @return a list of stats
+     * @see StatsRepository#getStat(String)
      */
+    @NotNull
     public List<AbstractStat> getStats(String[] keys) {
         List<AbstractStat> stats = Lists.newArrayList();
         for (String id : keys) {
@@ -104,16 +110,17 @@ public class StatsRepository implements Map<String, Object> {
     /**
      * @return reference to mongo manager for the updater thread
      */
+    @NotNull
     public MongoManager getMongoManager() {
         return mongoManager;
     }
 
     /**
      * The function allowing this to work
-     *
+     * <p>
      * It avoids having to make everything conform to one type
      * and instead it only has to be defined in the schema file
-     *
+     * <p>
      * This method will be called when acquiring values
      *
      * @param key stat key

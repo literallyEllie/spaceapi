@@ -1,12 +1,12 @@
-package net.spacedelta.api.stats.impl;
+package net.spacedelta.api.endpoint.stats.impl;
 
-import net.spacedelta.api.stats.IntegerStat;
-import net.spacedelta.api.stats.StatsRepository;
+import net.spacedelta.api.endpoint.stats.StatsRepository;
+import net.spacedelta.api.endpoint.stats.api.NumberStat;
 
 /**
  * Online player provider which counts the online network players using the database
  */
-public class StatOnlinePlayers extends IntegerStat {
+public class StatOnlinePlayers extends NumberStat {
 
     @Override
     public void refresh(StatsRepository repository) {

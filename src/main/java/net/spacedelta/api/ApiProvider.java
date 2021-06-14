@@ -5,7 +5,7 @@ import graphql.GraphQL;
 import graphql.kickstart.tools.SchemaParser;
 import graphql.schema.GraphQLSchema;
 import kotlin.text.Charsets;
-import net.spacedelta.api.stats.StatQueryResolver;
+import net.spacedelta.api.endpoint.stats.StatQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.net.URL;
 
 /**
  * The provider of the service
- *
+ * <p>
  * Loads the schema and registers the appropriate resolvers.
  */
 @Service

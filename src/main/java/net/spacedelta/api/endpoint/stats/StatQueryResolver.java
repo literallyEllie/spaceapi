@@ -1,4 +1,4 @@
-package net.spacedelta.api.stats;
+package net.spacedelta.api.endpoint.stats;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,8 +3,9 @@ spring:
     name: spaceapi
   profiles:
     active: prod
-  server:
-    port: 6969
+
+server:
+  port: 6970 # 6969 for https proxy
 
 graphql:
   spring-graphql-common:

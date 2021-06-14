@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * SpaceApi for doing sexy things for sexy people
- *
+ * <p>
  * The only current functionality is getting stats but WIP!
  */
 @SpringBootApplication

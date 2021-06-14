@@ -1,4 +1,4 @@
-package net.spacedelta.api.stats.error;
+package net.spacedelta.api.endpoint.stats.error;
 
 import graphql.GraphQLException;
 

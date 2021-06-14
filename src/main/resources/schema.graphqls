@@ -1,3 +1,4 @@
+
 type Query {
     stat: StatSet
 }
@@ -10,5 +11,6 @@ type AbstractStat {
 type StatSet {
     onlinePlayers: Int
     uniquePlayers: Int
+    globalBalance: String!
 }
 
