@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 /**
  * A stat to accumulative count all the balances.
@@ -38,8 +37,6 @@ public class StatGlobalBalance extends GenericStat {
                     if (!(rawCurrencyMap instanceof Map))
                         return;
 
-                    System.out.println("hi " + rawCurrencyMap);
-
                     ((Map) rawCurrencyMap).forEach((currencyId, amount) -> {
                         BigDecimal accumulative = (BigDecimal) results.getOrDefault(currencyId, new BigDecimal(0));
 
@@ -53,16 +50,7 @@ public class StatGlobalBalance extends GenericStat {
                     });
                 });
 
-        setValue("{" + results.entrySet().stream()
-                .map(stringObjectEntry -> "\"" + stringObjectEntry.getKey() + "\":" + stringObjectEntry.getValue())
-                .collect(Collectors.joining(",")) + "}");
-
-        System.out.println("done123 " + getValue());
+        setValue(results.toJson());
     }
 
-    @Override
-    public Object getValue() {
-        System.out.println("hello hel");
-        return super.getValue();
-    }
 }
